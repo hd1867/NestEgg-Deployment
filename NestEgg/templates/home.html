@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block active_link %}home-link{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/home.css' ) }}">
+{% endblock %}
+
+{% block body %}
+    <div id="card-capsule">
+        <div class="card" id="intro">
+            <div id="title">What is NestEgg?</div>
+            NestEgg is a platform that allows incarcerated individuals to receive training and apply for jobs and housing in order to have a foothold before their release.
+            By giving people a chance to prepare for life before leaving prison, our goal is to lower recidivism rates and turn incarceration into a restorative rather than
+            punitive experience. By offering access to online trainings and certifications, classes in financial management and responsibility, pre-screened job applications,
+            and affordable housing, it is our hope that people will leave the prison system in a better position to succeed than when they went in.
+        </div>
+        <div class="card" id="news">
+            <div id="title">News</div>
+            <div>
+
+            </div>
+        </div>
+        <div class="card" id="classes">
+            <div id="title">Latest Classes</div>
+            <div>
+                {% if classes.count|int <= 5 %}
+                    {% for class in classes %}
+                        <br>
+                        <h5>{{ class.title }}</h5>
+                    {% endfor %}
+                {% else %}
+                    {% for i in range(5) %}
+                        <br>
+                        <h5>{{ classes.find()[i].title }}</h5>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        <div class="card" id="jobs">
+            <div id="title">Newest Jobs</div>
+            <div>
+                {% if jobs.count|int <= 5 %}
+                    {% for job in jobs %}
+                        <br>
+                        <h5>{{ job.position }}</h5>
+                        <h6>{{ job.company }}</h6>     
+                    {% endfor %}
+                {% else %}
+                    {% for i in range(5) %}
+                        <br>
+                        <h5>{{ jobs.find()[i].position }}</h5>
+                        <h6>{{ jobs.find()[i].company }}</h6>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+        {% if 'user' in session %}
+        <div class="card" id="watchlist">
+            <div id="title">Housing Watchlist</div>
+            <div>
+                {% for house in watchlist %}
+                    <br>
+                    <h5>{{ house.location }} - {{ house.price }}</h5>
+                {% endfor %}
+            </div>
+        </div>
+        {% endif %}
+    </div>
+
+{% endblock %}

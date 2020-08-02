@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block active_link %}profile-link{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/messages.css' ) }}">
+{% endblock %}
+
+{% block body %}
+    <br>
+    <div class="container" style="width: 100%">
+        <div class="row justify-content-start">
+            <div class="col-4">
+                <form action="/sendMessage" method="post">
+                    <button class="btn" type="submit">Send Message</button>
+                </form>
+                <br>
+                <ul class="list-group" style="width: 20vw; padding-right: 5vw">
+                    {% for message in messages %}
+                        <a class="list-group-item list-group-item-action" onclick="showMessage( '{{ message.subject }}', '{{ message.message }}' )">
+                            <h5>{{ message.subject }}</h5>
+                            <h6>From: {{ message.sender }}</h6>
+                        </a>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="col-lg">
+                <h4 id="messageSubject"></h4>
+                <p id="messageBody"></p>
+            </div>
+        </div>
+    </div>
+
+
+{% endblock %}
+
+{% block js %}
+    <script type="text/javascript" src="{{ url_for('static', filename='js/messages.js' ) }}"></script>
+{% endblock %}
