@@ -4,5 +4,5 @@ import logging
 logging.basicConfig(stream=sys.stderr)
 sys.path.insert(0,"/var/www/NestEgg/")
 
-from FlaskApp import app as application
+from NestEgg import app as application
 application.secret_key = 'Add your secret key'
